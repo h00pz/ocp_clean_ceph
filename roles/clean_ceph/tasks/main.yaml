@@ -1,12 +1,12 @@
 ---
 - name: zap the disks to a fresh usable state
-  command: sgdisk --zap-all {{ ceph_disk }}
+  raw: sgdisk --zap-all {{ ceph_disk }}
 
 - name: overwrrite the MBR of {{ ceph_disk }}
-  command: dd if=/dev/zero of={{ ceph_disk }} bs=1M count=100 oflag=direct,dsync
+  raw: dd if=/dev/zero of={{ ceph_disk }} bs=1M count=100 oflag=direct,dsync
 
 - name: teardown devices mapped that lock the disks.
-  command: ls /dev/mapper/ceph-* | xargs -I% -- dmsetup remove %
+  raw: ls /dev/mapper/ceph-* | xargs -I% -- dmsetup remove %
 
 - name: remove remaining ceph devices
-  command: rm -rf /dev/ceph-*
+  raw: rm -rf /dev/ceph-*

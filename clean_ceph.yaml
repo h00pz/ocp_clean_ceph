@@ -2,4 +2,5 @@
 - hosts: all
   roles:
     - clean_ceph
-
+  
+   gather_facts: no
